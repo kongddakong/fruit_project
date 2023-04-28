@@ -1,5 +1,6 @@
 import { Controller, Get, HttpCode, Param, Post } from '@nestjs/common';
 import { FruitService } from './fruit.service';
+import {Result as FruitResult } from './result/result.interface'
 
 @Controller('fruit')
 export class FruitController {
