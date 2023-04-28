@@ -7,19 +7,19 @@ export class FruitController {
     constructor(private fruitService: FruitService) {}
 
     @Get('/')
-    getFruit(): object {
+    getFruit(): FruitResult {
         return { msg: this.fruitService.chk(), remain: this.fruitService.count }
     }
     
     @Post('/buy')
     @HttpCode(201)
-    buyFruit(): object{
+    buyFruit(): FruitResult{
         return { msg:this.fruitService.buy(1), remain: this.fruitService.count}
     }
 
     @Post('/buy/:count')
     @HttpCode(201)
-    buyFruits(@Param('count') count:string): object{
+    buyFruits(@Param('count') count:string): FruitResult{
         return{
             msg: this.fruitService.buy(parseInt(count, 10)),
             remain: this.fruitService.count
@@ -32,7 +32,7 @@ export class FruitController {
     }
 
     @Get('/eat/:count')
-    eatFruits(@Param('count') count:string): object {
+    eatFruits(@Param('count') count:string): FruitResult {
         return {
             msg: this.fruitService.eat(parseInt(count, 10)),
             remain: this.fruitService.count,
