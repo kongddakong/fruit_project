@@ -1,7 +1,8 @@
-import { Body, Controller, Get, HttpCode, Param, ParseIntPipe, Post, ValidationPipe } from '@nestjs/common';
+import { Body, Controller, Get, HttpCode, Param, ParseIntPipe, Post, UseInterceptors, ValidationPipe } from '@nestjs/common';
 import { FruitService } from './fruit.service';
 import {Result as FruitResult } from './result/result.interface'
 import { SupplyDto } from './dto/supply';
+import { SupplyInterceptor } from 'src/common/interceptor/supply.interceptor';
 
 @Controller('fruit')
 export class FruitController {
@@ -42,14 +43,12 @@ export class FruitController {
 
     @Post('/supply')
     @HttpCode(201)
+    @UseInterceptors(SupplyInterceptor)
     supplyFruits(@Body(ValidationPipe) supplyDto: SupplyDto): FruitResult {
-        return {
-            msg:
-            this.fruitService.buy(
-                supplyDto.box * supplyDto.pcs + (supplyDto.bonus ?? 0),
-            ) + (supplyDto.msg ?? ''),
-            remain: this.fruitService.count,
-        }
+       return {
+        msg : this.fruitService.buy(supplyDto.total),
+        remain:this.fruitService.count,
+       }
     }
 
 }

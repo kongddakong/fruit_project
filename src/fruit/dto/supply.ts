@@ -1,19 +1,10 @@
-import { IsNumber, IsOptional, IsString, Min } from "class-validator";
+import { IsNumber, IsOptional, IsString, MIN } from "class-validator";
 
 export class SupplyDto {
-
-    @IsNumber()
-    @Min(0)
-    readonly box: number;
-
-    @IsNumber()
-    @Min(0)
-    readonly pcs: number;
-
     @IsOptional()
     @IsNumber()
-    @Min(0)
-    readonly bonus: number;
+    //@MIN(0)
+    readonly total: number;
 
     @IsOptional()
     @IsString()
