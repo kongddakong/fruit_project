@@ -1,4 +1,4 @@
-import { Body, Controller, Get, HttpCode, Param, Post, ValidationPipe } from '@nestjs/common';
+import { Body, Controller, Get, HttpCode, Param, ParseIntPipe, Post, ValidationPipe } from '@nestjs/common';
 import { FruitService } from './fruit.service';
 import {Result as FruitResult } from './result/result.interface'
 import { SupplyDto } from './dto/supply';
@@ -20,9 +20,9 @@ export class FruitController {
 
     @Post('/buy/:count')
     @HttpCode(201)
-    buyFruits(@Param('count') count:string): FruitResult{
+    buyFruits(@Param('count', ParseIntPipe) count:number): FruitResult{
         return{
-            msg: this.fruitService.buy(parseInt(count, 10)),
+            msg: this.fruitService.buy(count),
             remain: this.fruitService.count
         }
     }
@@ -33,9 +33,9 @@ export class FruitController {
     }
 
     @Get('/eat/:count')
-    eatFruits(@Param('count') count:string): FruitResult {
+    eatFruits(@Param('count', ParseIntPipe) count:number): FruitResult {
         return {
-            msg: this.fruitService.eat(parseInt(count, 10)),
+            msg: this.fruitService.eat(count),
             remain: this.fruitService.count,
         }
     }
