@@ -6,7 +6,7 @@ import { User } from '../user/user.entity';
 
 
 @Injectable()
-//@ChangeFruit('µþ±â')  
+//@ChangeFruit('strawberry')  
 export class FruitService {
     count: number;
     readonly name: string;
@@ -17,7 +17,7 @@ export class FruitService {
         private fruitRepository: Repository<Fruit>
     ){
         this.chkInventory();
-        this.name = '°úÀÏ';
+        this.name = 'fruit';
         this.userId = 1;
     }
 
@@ -41,11 +41,11 @@ export class FruitService {
         this.count = fruit.inventory;
     }
 
-    async get() {
+    async get(userid:number) {
         return await this.fruitRepository.findOne({
             relations: ['user'],
             where: {
-                id: this.userId,
+                id: userid,
             }
         })
     }

@@ -52,9 +52,9 @@ export class FruitController {
        }
     }
 
-    @Get('/status')
-    async get(): Promise<object> {
-        return await this.fruitService.get();
+    @Get('/status/:userid')
+    async get(@Param('userid', ParseIntPipe) userid:number): Promise<object> {
+        return await this.fruitService.get(userid);
     }
 
 }
