@@ -9,8 +9,9 @@ export class FruitController {
     constructor(private fruitService: FruitService) {}
 
     @Get('/')
-    getFruit(): FruitResult {
-        return { msg: this.fruitService.chk(), remain: this.fruitService.count }
+    async getFruit(): Promise<FruitResult> {
+        const res = await this.fruitService.chk();
+        return { msg: res, remain: this.fruitService.count }
     }
     
     @Post('/buy')
@@ -49,6 +50,11 @@ export class FruitController {
         msg : this.fruitService.buy(supplyDto.total),
         remain:this.fruitService.count,
        }
+    }
+
+    @Get('/status')
+    async get(): Promise<object> {
+        return await this.fruitService.get();
     }
 
 }
