@@ -3,7 +3,9 @@ import { FruitService } from './fruit.service';
 import {Result as FruitResult } from './result/result.interface'
 import { SupplyDto } from './dto/supply';
 import { SupplyInterceptor } from 'src/common/interceptor/supply.interceptor';
+import { ApiCreatedResponse, ApiTags } from '@nestjs/swagger';
 
+@ApiTags('과일 API')
 @Controller('fruit')
 export class FruitController {
     constructor(private fruitService: FruitService) {}
@@ -16,6 +18,7 @@ export class FruitController {
     
     @Post('/buy')
     @HttpCode(201)
+    @ApiCreatedResponse({description: "과일을 사온 결과 값을 반환합니다.", type:FruitResult})
     buyFruit(): FruitResult{
         return { msg:this.fruitService.buy(1), remain: this.fruitService.count}
     }
