@@ -10,9 +10,8 @@ export class UserService {
         private userRepository: Repository<User>
     ) {}
 
-    async findOne(username: string): Promise<User | undefined> {
-        const user = this.userRepository.findOneBy({ name: username })
-        console.log(user)
-        return await user;
+    async findOne(username:string): Promise<User | undefined> {
+        const user = await this.userRepository.findOneBy({ name:username });
+        return user;
     }
 }
